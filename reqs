@@ -1,0 +1,21 @@
+OBJETIVO: Criar um script que obtem informacoes de interesse sobre criptomoedas a partir de
+"https://coinmarketcap.com/"
+
+Requisitos:
+    ✅- Obter as mesmas informações vistas por padrão na Web page
+
+    ✅- Identificar as seguintes criptomoedas:
+        ✅- a que mais valorizou nas(os) ultimas(os) 1hr, 24hrs, 7dias
+        ✅- a que mais desvalorizou nas(os) ultimas(os) 1hr, 24hrs, 7dias
+
+    ✅- Identificar as 10 criptomoedas com o maior indice:
+        -> MARKET CAP * %valorizacao em 7dias / Preço
+
+    ✅- Salvar as informações obtidas em um arquivo .csv (comma-separated values)
+
+    ✅- Enviar o arquivo por email para "destinatario@dominio.com.br"
+
+    ✅- O relatorio de output deve ser o mesmo tanto na saída do programa, quanto na mensage de corpo do email.
+
+    ✅- O programa deve ser capaz de analizar as 3 primeiras paginas de criptomoedas (300 total)
+

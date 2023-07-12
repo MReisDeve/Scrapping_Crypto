@@ -1,4 +1,5 @@
 import time
+import csv
 from selenium.webdriver.common.by import By
 
 def get_tag_percentage_value(tag):
@@ -24,8 +25,8 @@ def get_webelemente_percentage_value(we):
     return percentage_delta + 0
 
 def get_money_as_number(money_str, number_type=float):
-
-    return number_type(money_str.strip("$").replace(",",""))
+    modnumber = money_str.lstrip("$").replace(",","")
+    return number_type(modnumber.replace(".",""))
 
 def get_custom_index(coin_data):
 
@@ -38,3 +39,11 @@ def get_custom_index(coin_data):
 def add_custom_index_cell(table):
     for row in table:
         row["custom_index"] = round(get_custom_index(row), 2)
+
+def write_to_csv(table):
+    with open("crypto_data.csv", mode="w") as csv_file:
+        headers = table[0].keys()
+        csv_writer = csv.DictWriter(csv_file, fieldnames=headers)
+        csv_writer.writeheader()
+        for row in table:
+            csv_writer.writerow(row)

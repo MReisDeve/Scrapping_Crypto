@@ -1,5 +1,5 @@
 import time
-from utils import get_webelemente_percentage_value, sort_by_field,add_custom_index_cell,get_money_as_number
+from utils import get_webelemente_percentage_value, sort_by_field,add_custom_index_cell,get_money_as_number,write_to_csv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -51,3 +51,5 @@ print(f"\tna ultima semana:{sort_by_field(table=table,field='one_week',reverse=F
 print("As moedas que mais valorizaram foram:")
 for row in sort_by_field(table=table,field='custom_index')[:10]:
     print(f"{row['name']} - {row['price']} - {row['custom_index']}")
+
+write_to_csv(table)

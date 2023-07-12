@@ -25,7 +25,7 @@ def get_webelemente_percentage_value(we):
 
 def get_money_as_number(money_str, number_type=float):
 
-    return number_type(money_str.lstrip("$").replace(",",""))
+    return number_type(money_str.strip("$").replace(",",""))
 
 def get_custom_index(coin_data):
 

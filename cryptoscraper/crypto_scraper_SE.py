@@ -1,5 +1,5 @@
 import time
-from utils import get_webelemente_percentage_value, sort_by_field,get_custom_index,get_money_as_number
+from utils import get_webelemente_percentage_value, sort_by_field,add_custom_index_cell,get_money_as_number
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By

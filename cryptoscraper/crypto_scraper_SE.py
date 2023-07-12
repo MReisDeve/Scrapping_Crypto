@@ -3,6 +3,7 @@ from utils import get_webelemente_percentage_value, sort_by_field,add_custom_ind
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from mail_sender import Mail_Sender
 
 service = Service(executable_path="Users/Public/Downloads/chromedriver")
 driver = webdriver.Chrome(service=service)

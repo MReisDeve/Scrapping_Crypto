@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from utils import get_tag_percentage_value,sort_by_field
 
 url = "https://coinmarketcap.com"
 web_page = requests.get(url)
@@ -16,9 +17,9 @@ for tr in crypto_table_body.contents:
     processed_row = {
         'name' : name.p.text,
         'price' : price.span.text,
-        'one_hr': round(float(one_hr.span.text.strip("%")),2),
-        'one_day': round(float(one_day.span.text.strip("%")),2),
-        'one_week': round(float(one_week.span.text.strip("%")),2),
+        'one_hr': get_tag_percentage_value(tag=one_hr.span),
+        'one_day': get_tag_percentage_value(tag=one_day.span),
+        'one_week': get_tag_percentage_value(tag=one_week.span),
         'market_cap':market_cap.find(name= "span", attrs={"data-nosnippet":"true"}).text,
         'volume': volume.p.text,
         'circ_supply': circ_supply.p.text,
@@ -26,5 +27,15 @@ for tr in crypto_table_body.contents:
         
     }
     table.append(processed_row)
-    for crypto in table:
-        print(crypto)
+for row in table:
+    print(row)
+
+print("A criptomoeda que mais valorizou foi: ")
+print(f"\tna ultima hora:{sort_by_field(table=table,field='one_hr')[0]}")
+print(f"\tno ultimo dia:{sort_by_field(table=table,field='one_day')[0]}")
+print(f"\tna ultima semana:{sort_by_field(table=table,field='one_week')[0]}")
+
+print("A criptomoeda que mais desvalorizou foi: ")
+print(f"\tna ultima hora:{sort_by_field(table=table,field='one_hr',reverse=False)[0]}")
+print(f"\tno ultimo dia:{sort_by_field(table=table,field='one_day',reverse=False)[0]}")
+print(f"\tna ultima semana:{sort_by_field(table=table,field='one_week',reverse=False)[0]}")

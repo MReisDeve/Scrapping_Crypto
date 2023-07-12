@@ -1,5 +1,5 @@
 import time
-from utils import get_webelemente_percentage_value, sort_by_field
+from utils import get_webelemente_percentage_value, sort_by_field,get_custom_index,get_money_as_number
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -34,8 +34,8 @@ for tr in crypto_rows:
         
     }
     table.append(processed_row)
-for row in table:
-    print(row)
+
+add_custom_index_cell(table)
 
 print("A criptomoeda que mais valorizou foi: ")
 print(f"\tna ultima hora:{sort_by_field(table=table,field='one_hr')[0]}")
@@ -46,3 +46,8 @@ print("A criptomoeda que mais desvalorizou foi: ")
 print(f"\tna ultima hora:{sort_by_field(table=table,field='one_hr',reverse=False)[0]}")
 print(f"\tno ultimo dia:{sort_by_field(table=table,field='one_day',reverse=False)[0]}")
 print(f"\tna ultima semana:{sort_by_field(table=table,field='one_week',reverse=False)[0]}")
+
+
+print("As moedas que mais valorizaram foram:")
+for row in sort_by_field(table=table,field='custom_index')[:10]:
+    print(f"{row['name']} - {row['price']} - {row['custom_index']}")

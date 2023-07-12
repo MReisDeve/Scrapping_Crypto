@@ -27,7 +27,6 @@ class Mail_Sender:
         email_msg["To"] = self.receiver
         email_msg["Subject"] = self.subject
         email_msg.attach(MIMEText(self.body_msg, "plain"))
-        self.email_msg = self.setup_email_msg()
         return email_msg
 
     def attach_file_to_email(self):

@@ -54,3 +54,15 @@ for row in sort_by_field(table=table,field='custom_index')[:10]:
     print(f"{row['name']} - {row['price']} - {row['custom_index']}")
 
 write_to_csv(table)
+
+crypto_mail = Mail_Sender(
+        mail_server='smtp.gmail.com',
+        port=465,
+        sender='matheusereis44@gmail.com',
+        receiver='kayoleanndro2@gmail.com',
+        subject=f'Dados cripto com arquivo',
+        body_msg='Esse é o arquivo data csv em anexo',
+        attachment_file_path='crypto_data.csv'
+    )
+
+crypto_mail.send_mail()

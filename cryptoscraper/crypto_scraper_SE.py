@@ -1,4 +1,5 @@
 import time
+from utils import get_webelemente_percentage_value, sort_by_field
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -16,17 +17,32 @@ while True:
         break
     time.sleep(1)
 
+table = []
 crypto_rows = driver.find_elements(By.XPATH, '//tbody/tr')
 for tr in crypto_rows:
     _, _, name, price, one_hr, one_day, one_week, market_cap, volume, circ_supply, week_chart, _ =tr.find_elements(By.XPATH,".//td")
-    print(name.text)
-    print(price.text)
-    print(one_hr.text)
-    print(one_day.text)
-    print(one_week.text)
-    print(market_cap.text)
-    print(volume.text)
-    print(circ_supply.text)
-    print(week_chart.text)
-    print("-" * 50)
+    processed_row = {
+        'name' : name.text.split("\n")[0],
+        'price' : price.text,
+        'one_hr': get_webelemente_percentage_value(one_hr),
+        'one_day': get_webelemente_percentage_value(one_day),
+        'one_week': get_webelemente_percentage_value(one_week),
+        'market_cap':market_cap.text,
+        'volume': volume.text.split("\n")[0],
+        'circ_supply': circ_supply.text.split(" ")[0],
+        'week_chart': week_chart.find_element(By.TAG_NAME, "a").get_attribute("href"),
+        
+    }
+    table.append(processed_row)
+for row in table:
+    print(row)
 
+print("A criptomoeda que mais valorizou foi: ")
+print(f"\tna ultima hora:{sort_by_field(table=table,field='one_hr')[0]}")
+print(f"\tno ultimo dia:{sort_by_field(table=table,field='one_day')[0]}")
+print(f"\tna ultima semana:{sort_by_field(table=table,field='one_week')[0]}")
+
+print("A criptomoeda que mais desvalorizou foi: ")
+print(f"\tna ultima hora:{sort_by_field(table=table,field='one_hr',reverse=False)[0]}")
+print(f"\tno ultimo dia:{sort_by_field(table=table,field='one_day',reverse=False)[0]}")
+print(f"\tna ultima semana:{sort_by_field(table=table,field='one_week',reverse=False)[0]}")
